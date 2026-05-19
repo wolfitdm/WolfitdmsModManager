@@ -769,7 +769,7 @@ namespace WolfitdmsModManagerDNLLLL
 
         private void initJsonFiles()
         {
-            initModSource("getmoremods", "https://github.com/wolfitdm/BitchlandModManager/releases/download/v1.0.0/BepInExMods.zip", "https://github.com/wolfitdm/BitchlandModManager/releases/download/v1.0.0/IngameMods.zip", "BepInExMods.zip", "IngameMods.zip");
+            initModSource("getmoremods", "https://github.com/wolfitdm/WolfitdmsModManager/releases/download/1.0.0/BepInExMods.zip", "https://github.com/wolfitdm/WolfitdmsModManager/releases/download/1.0.0/RenpyMods.zip", "BepInExMods.zip", "RenpyMods.zip");
             initModSources();
         }
 
@@ -838,9 +838,9 @@ namespace WolfitdmsModManagerDNLLLL
                     j = 0;
                     prefix = "";
 
-                    filename = Path.GetFileNameWithoutExtension(getmoremodss["IngameModsFileName"]);
+                    filename = Path.GetFileNameWithoutExtension(getmoremodss["RenpyModsFileName"]);
 
-                    ext = Path.GetExtension(getmoremodss["IngameModsFileName"]);
+                    ext = Path.GetExtension(getmoremodss["RenpyModsFileName"]);
 
                     filename1 = filename + prefix + ext;
 
@@ -860,7 +860,7 @@ namespace WolfitdmsModManagerDNLLLL
             {
             }
         }
-        public bool initModSource(string name, string bepInExModsDownloadLink, string ingameModsDownloadLink, string bepInExModsFileName, string ingameModsFileName)
+        public bool initModSource(string name, string bepInExModsDownloadLink, string ingameModsDownloadLink, string bepInExModsFileName, string RenpyModsFileName)
         {
             try
             {
@@ -876,7 +876,7 @@ namespace WolfitdmsModManagerDNLLLL
 
                 getmoremodss.Add("RenpyMods", ingameModsDownloadLink);
                 getmoremodss.Add("BepInExMods", bepInExModsDownloadLink);
-                getmoremodss.Add("IngameModsFileName", ingameModsFileName);
+                getmoremodss.Add("RenpyModsFileName", RenpyModsFileName);
                 getmoremodss.Add("BepInExModsFileName", bepInExModsFileName);
 
                 File.WriteAllText(modSource, getmoremodss.ToJson());
@@ -939,11 +939,11 @@ namespace WolfitdmsModManagerDNLLLL
                     return null;
                 }
 
-                if (jsonFile.TryGetValue("IngameModsFileName", out string ingameModsFileName))
+                if (jsonFile.TryGetValue("RenpyModsFileName", out string RenpyModsFileName))
                 {
-                    if (ingameModsFileName == null || ingameModsFileName == string.Empty)
+                    if (RenpyModsFileName == null || RenpyModsFileName == string.Empty)
                         return null;
-                    getmoremodss["IngameModsFileName"] = ingameModsFileName;
+                    getmoremodss["RenpyModsFileName"] = RenpyModsFileName;
                 }
                 else
                 {

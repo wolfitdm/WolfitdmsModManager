@@ -221,7 +221,7 @@ namespace WolfitdmsModManagerDNLLLL
 
                     jsonFile["version"] = "v1.0.0";
 
-                    File.WriteAllText(file, jsonFile.ToJson());
+                    File.WriteAllText(bepInExMods[i], jsonFile.ToJson());
                 }
                 catch (Exception ex)
                 {
@@ -246,7 +246,7 @@ namespace WolfitdmsModManagerDNLLLL
 
                     jsonFile["version"] = "v1.0.0";
 
-                    File.WriteAllText(file, jsonFile.ToJson());
+                    File.WriteAllText(ingameMods[i], jsonFile.ToJson());
                 }
                 catch (Exception ex)
                 {
@@ -461,9 +461,8 @@ namespace WolfitdmsModManagerDNLLLL
 
                 if (isIngameMod)
                 {
-                    backupDir = "Assets";
-                    backupDir = Path.Combine(backupDir, "Mods");
-                    extractDirectory = Path.Combine(extractDirectory, backupDir);
+                    backupDir = "game";
+                    backupDir = Path.Combine(backupDir, "wolfitdm");
                 }
 
                 createBackup(isIngameMod);
@@ -1617,7 +1616,7 @@ namespace WolfitdmsModManagerDNLLLL
 
                         string fullName = entry.FullName;
 
-                        if (!fullName.StartsWith("game/wolfitdm/"))
+                        if (!fullName.StartsWith("game/wolfitdm/") && !fullName.StartsWith("wolfitdm/"))
                         {
                             continue;
                         }
@@ -1627,13 +1626,20 @@ namespace WolfitdmsModManagerDNLLLL
                             continue;
                         }
 
-                        if (!File.Exists(fullName))
+                        string fullPathDeleted = fullName;
+
+                        if (fullName.StartsWith("wolfitdm/"))
+                        {
+                            fullPathDeleted = $"game/{fullName}";
+                        }
+
+                        if (!File.Exists(fullPathDeleted))
                         {
                             continue;
                         }
 
-                        File.Delete(fullName);
-                        fullPath.Add(fullName);
+                        File.Delete(fullPathDeleted);
+                        fullPath.Add(fullPathDeleted);
                         uninstallComplete = true;
                     }
                 }
@@ -1938,7 +1944,7 @@ namespace WolfitdmsModManagerDNLLLL
                     return;
                 }
 
-                DialogResult dialogResult = MessageBox.Show($"Sure you want delete all mods? Yes/No/Cancel", "Uninstall", MessageBoxButtons.YesNoCancel);
+                DialogResult dialogResult = MessageBox.Show($"Sure you want delete all mods including mod loader? Yes/No/Cancel", "Uninstall", MessageBoxButtons.YesNoCancel);
 
                 DialogResult dialogResult2 = MessageBox.Show($"Would you like to make a backup beforehand? Yes/No/Cancel", "Uninstall", MessageBoxButtons.YesNoCancel);
 
@@ -1960,14 +1966,14 @@ namespace WolfitdmsModManagerDNLLLL
 
                     Directory.CreateDirectory("game/wolfitdm");
 
-                    if (File.Exists("game/wolfitdm_modloader.rpy"))
+                    if (File.Exists("game/wolfitdm_mod_loader.rpy"))
                     {
-                        File.Delete("game/wolfitdm_modloader.rpy");
+                        File.Delete("game/wolfitdm_mod_loader.rpy");
                     }
 
-                    if (File.Exists("game/wolfitdm_modloader.rpyc"))
+                    if (File.Exists("game/wolfitdm_mod_loader.rpyc"))
                     {
-                        File.Delete("game/wolfitdm_modloader.rpyc");
+                        File.Delete("game/wolfitdm_mod_loader.rpyc");
                     }
 
                     resetIngameMods();

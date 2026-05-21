@@ -291,7 +291,7 @@
             deleteAllIngameMods.Name = "deleteAllIngameMods";
             deleteAllIngameMods.Size = new Size(447, 23);
             deleteAllIngameMods.TabIndex = 25;
-            deleteAllIngameMods.Text = "Delete all renpy mods";
+            deleteAllIngameMods.Text = "Delete all renpy mods including modloader";
             deleteAllIngameMods.UseVisualStyleBackColor = true;
             deleteAllIngameMods.Click += deleteAllIngameMods_Click;
             // 
